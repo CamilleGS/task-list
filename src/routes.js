@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route,  Routes } from "react-router-dom";
 import React from "react";
-import Home from './home'
-import Task from './task'
+import Home from './pages/home'
+import Task from './pages/task'
 
 
 function myRoutes(){
@@ -14,11 +14,7 @@ function myRoutes(){
                     <Route path="/task" element={<Task/>}/>
                 </Routes>
             </Router>
-    
-
     )
-
-
 }
 
 export default myRoutes
