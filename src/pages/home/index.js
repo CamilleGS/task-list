@@ -14,8 +14,8 @@ function Home(){
 return(
     <Container>
         <Img src={Check}/>
+        <H1>Lista de Tarefas</H1>
         <ContainerItems>
-            <H1>Lista de Tarefas</H1>
             <P>Tarefa</P>
             <Input placeholder="Escreva sua tarefa"/>
             <Button onClick={goForward}>Adicionar</Button>

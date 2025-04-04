@@ -17,8 +17,8 @@ function Task(){
 return(
     <Container>
         <Img src={Book}/>
+        <H1> Tarefas</H1>
         <ContainerItems>
-            <H1> Tarefas</H1>
             <Button onClick={goBack}>Voltar</Button>
         </ContainerItems>
     </Container>
