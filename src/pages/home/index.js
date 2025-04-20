@@ -13,10 +13,6 @@ function Home(){
     const inputTask = useRef()
     const [, setTask] = useState([])
 
-    
-
-        
-    
 
     function AddNewTask(){
         const novaTarefa = inputTask.current.value
