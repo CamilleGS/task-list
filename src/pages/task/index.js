@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import { useEffect,  useState } from "react";
 import Book from '../../assets/book.png'
 import Trash from '../../assets/trash.png'
+import axios from 'axios'
 
 
 
@@ -12,18 +13,17 @@ function Task(){
     const [task, setTask] = useState([])
     
     useEffect(()=>{
-        const addedTask = localStorage.getItem("myTask")
-
-        if(addedTask){
-            setTask(JSON.parse(addedTask))
+        async function fechTask(){
+            const { data: getTask } = await axios.get('http://localhost:3010/task')
+            setTask(getTask)
         }
+        fechTask()
     }, [])
 
-    function RemoveTask(Index){
-        const newList = task.filter((_, i) => i !== Index)
-        setTask(newList)
-        localStorage.setItem("myTask", JSON.stringify(newList))
-
+    async function RemoveTask(id){
+        await axios.delete(`http://localhost:3010/task/${id}`)
+        const deleteTask = task.filter(tasks => tasks.id !== id)
+        setTask(deleteTask)
     }
 
     function goBack(){
@@ -40,10 +40,10 @@ return(
         <H1> Tarefas</H1>
         <ContainerItems>
             <ul>
-                {task.map((task, index) =>(
-                    <li key={index}>
-                        {task} 
-                        <Img src={Trash} onClick={() => RemoveTask(index)}/> 
+                {task.map((taskObj) =>(
+                    <li key={taskObj.id}>
+                        {taskObj.taskName} 
+                        <Img src={Trash} onClick={() => RemoveTask(taskObj.id)}/> 
                     </li>
                 ))}
             </ul>

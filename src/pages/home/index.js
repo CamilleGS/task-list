@@ -3,37 +3,25 @@ import { Container, ContainerItems, Img, Input, Button, H1, P } from "./style";
 import { useNavigate } from "react-router-dom";
 import { useRef,  useState } from "react";
 import Check from '../../assets/check.png'
+import axios from "axios";
 
-
-//dps de fazer o navigate temos que:
-//pegar os valores dos inputs primeiro, adicionar no array conforme eu coloco
 
 function Home(){
     const navigate = useNavigate()
     const inputTask = useRef()
-    const [, setTask] = useState([])
+    const [task, setTask] = useState([])
 
 
-    function AddNewTask(){
-        const novaTarefa = inputTask.current.value
+    async function AddNewTask(){
 
-        if(novaTarefa === "") {
-            return alert('escreve sua tarefa')
-            
+        if(!inputTask.current.value){
+            return alert('Digite a Tarefa')
+        } else{
+            const {data: newTask} = await axios.post('http://localhost:3010/task', {taskName:inputTask.current.value})
+            setTask([...task, newTask])
         }
-
-        const tarefasAntigas = JSON.parse(localStorage.getItem("myTask"))
-
-        const novaLista = [...tarefasAntigas, novaTarefa]
-
-        setTask(novaLista)
-        localStorage.setItem("myTask", JSON.stringify(novaLista))
-
-        inputTask.current.value = "";
         navigate("/task")
       }
-
-
 
 return(
     <Container>
